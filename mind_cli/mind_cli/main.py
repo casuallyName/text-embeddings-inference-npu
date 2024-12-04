@@ -174,7 +174,7 @@ def trace_and_compile(model_name_or_path: Annotated[str, typer.Argument(help='Mo
     if max_shape is None:
         max_shape = (300, model.config.max_position_embeddings)
         typer.echo(
-            typer.style('INFO: ', fg=typer.colors.YELLOW, bold=True) +
+            typer.style('WARN: ', fg=typer.colors.YELLOW, bold=True) +
             "Set max shape to " +
             typer.style(str(max_shape), fg=typer.colors.GREEN, bold=True)
         )
@@ -188,7 +188,7 @@ def trace_and_compile(model_name_or_path: Annotated[str, typer.Argument(help='Mo
     if soc is None:
         soc = torch_npu.npu.get_device_name()
         typer.echo(
-            typer.style('INFO: ', fg=typer.colors.YELLOW, bold=True) +
+            typer.style('WARN: ', fg=typer.colors.YELLOW, bold=True) +
             "Set soc version to " +
             typer.style(soc, fg=typer.colors.GREEN, bold=True)
         )

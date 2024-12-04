@@ -28,7 +28,7 @@ if FLASH_ATTENTION:
     __all__.append(FlashBert)
 
 
-def get_model(model_path: Path, dtype: Optional[str]):
+def get_model(model_path: Path, dtype: Optional[str], pool:str='cls'):
     if dtype == "float32":
         dtype = torch.float32
     elif dtype == "float16":
@@ -53,7 +53,9 @@ def get_model(model_path: Path, dtype: Optional[str]):
                 and dtype in [torch.float16, torch.bfloat16]
                 and FLASH_ATTENTION
         ):
+            if pool != 'cls':
+                raise ValueError("FlashBert only supports cls pooling")
             return FlashBert(model_path, device, dtype)
         else:
-            return DefaultModel(model_path, device, dtype)
+            return DefaultModel(model_path, device, dtype, pool)
     raise NotImplementedError
